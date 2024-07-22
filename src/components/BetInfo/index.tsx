@@ -30,7 +30,7 @@ const BetInfo = () => {
     return () => {
       clearTimeout(hideBetChoicesTimeout);
     };
-  }, []);
+  }, [setBettingState, toggleSelectedBetsVisibility, updateBalance]);
 
   return (
     <section className="h-24 grid">

@@ -29,7 +29,7 @@ const SelectedBets = () => {
       );
     };
     handleOutcome();
-  }, []);
+  }, [bets, botBet, setBettingResult, setWinAmount]);
 
   return (
     <div className="flex flex-col md:flex-row gap-1 items-center md:items-end lg:gap-16 font-semibold">
