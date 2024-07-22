@@ -69,7 +69,7 @@ const createState = (
         winnerBet: null
       },
       showBetOutCome: false,
-      showBetChoices: true,
+      showSelectedBets: true,
       bettingState: BettingState.Started,
       isBettingFinished: false
     }));

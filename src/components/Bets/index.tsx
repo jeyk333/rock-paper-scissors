@@ -30,7 +30,7 @@ const Bets = () => {
         showBetAmount: playerChoices.includes(choice),
         borderWidth: getBorderSize(choice, botBet as Choices, bettingResult)
       })),
-    [bets]
+    [bets, bettingResult, botBet, playerChoices]
   );
 
   const selectedBetCount: number = bets.length;
@@ -62,7 +62,7 @@ const Bets = () => {
 
   const handleReduceBet = useCallback(
     (chosenBet: Bet): void => {
-      let isBetPresent = bets.some((currentBet) => currentBet.choice === chosenBet.choice);
+      const isBetPresent = bets.some((currentBet) => currentBet.choice === chosenBet.choice);
       if (isBetPresent) {
         if (isBettingFinished || bettingState !== BettingState.Started) return;
 
@@ -79,7 +79,7 @@ const Bets = () => {
         updateBalance('increase', chosenBet.amount);
       }
     },
-    [isBettingFinished, bettingState, playerChoices, removeBet, updateBalance]
+    [isBettingFinished, bettingState, removeBet, updateBalance, bets]
   );
 
   return (
