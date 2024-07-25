@@ -35,10 +35,19 @@ const determineOutcome = (playerChoices: Choices[], botChoice: Choices): Betting
 const calculateReturn = (
   bets: Bet[],
   bettingResultType: BettingResultType,
-  isSinglePosition: boolean
+  isSinglePosition: boolean,
+  winnerBet: string
 ): number => {
   const winAmount: number = 0;
-  const totalBetAmount: number = bets.reduce((total: number, bet: Bet) => total + bet.amount, 0);
+
+  const winnerBets: Bet[] = bets.filter((bet: Bet) => {
+    return bet.choice === winnerBet;
+  });
+
+  const totalBetAmount: number = winnerBets.reduce(
+    (total: number, bet: Bet) => total + bet.amount,
+    0
+  );
   const singleBetRate: number = 14;
   const twoBetRate: number = 3;
   const multiplier: number = isSinglePosition ? singleBetRate : twoBetRate;

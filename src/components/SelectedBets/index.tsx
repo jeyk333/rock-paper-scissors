@@ -9,27 +9,31 @@ const SelectedBets = () => {
   const playerBet: string = [...positions].join(' & ');
 
   useEffect(() => {
-    const handleCalculateReturn = (
-      bettingResultType: BettingResultType,
-      isSinglePosition: boolean
-    ) => {
-      const winAmount: number = calculateReturn(bets, bettingResultType, isSinglePosition);
-      setWinAmount(winAmount);
-    };
-
-    const handleOutcome = () => {
-      const bettingResult: BettingResult = determineOutcome(
-        bets.map((bet) => bet.choice),
-        botBet as Choices
-      );
-      setBettingResult(bettingResult);
-      handleCalculateReturn(
-        bettingResult.bettingResultType as BettingResultType,
-        bettingResult.isSinglePosition
-      );
-    };
     handleOutcome();
   }, [bets, botBet, setBettingResult, setWinAmount]);
+
+  const handleCalculateReturn = (
+    bettingResultType: BettingResultType,
+    isSinglePosition: boolean,
+    winnerBet: string
+  ) => {
+    const winAmount: number = calculateReturn(bets, bettingResultType, isSinglePosition, winnerBet);
+    setWinAmount(winAmount);
+  };
+
+  const handleOutcome = () => {
+    const bettingResult: BettingResult = determineOutcome(
+      bets.map((bet) => bet.choice),
+      botBet as Choices
+    );
+    setBettingResult(bettingResult);
+    const winnerBet: string = bettingResult?.winnerBet ? bettingResult.winnerBet : '';
+    handleCalculateReturn(
+      bettingResult.bettingResultType as BettingResultType,
+      bettingResult.isSinglePosition,
+      winnerBet
+    );
+  };
 
   return (
     <div className="flex flex-col md:flex-row gap-1 items-center md:items-end lg:gap-16 font-semibold">
